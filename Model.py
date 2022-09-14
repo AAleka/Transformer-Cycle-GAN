@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from torchsummary import summary
+# from torchsummary import summary
 
 
 class ImgPatches(nn.Module):

@@ -6,7 +6,7 @@ from torchvision.utils import save_image
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 from tqdm import tqdm
-from torchsummary import summary
+# from torchsummary import summary
 
 from Utils import save_checkpoint, load_checkpoint
 from Dataset import ABDataset
@@ -181,7 +181,7 @@ if __name__ == "__main__":
 
     gen = Generator().to(DEVICE)
     disc = Discriminator().to(DEVICE)
-    summary(gen, (3, 256, 256))
-    summary(disc, (3, 256, 256))
+    # summary(gen, (3, 256, 256))
+    # summary(disc, (3, 256, 256))
 
     main()

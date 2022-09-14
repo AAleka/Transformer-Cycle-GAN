@@ -9,8 +9,8 @@ from albumentations.pytorch import ToTensorV2
 from torch.utils.data import DataLoader
 from torchvision.utils import save_image
 from tqdm import tqdm
-from torchsummary import summary
-from torchmetrics import PeakSignalNoiseRatio
+# from torchsummary import summary
+# from torchmetrics import PeakSignalNoiseRatio
 from skimage import color
 from skimage.metrics import structural_similarity
 
@@ -26,6 +26,7 @@ dataset_name = "EyeQ"  # "EyeQ" "Mendeley"
 path = "Results"
 checkpoint = "Results/genb.pth.tar"
 save_path = f"Results/Testing {dataset_name}"
+TEST_DIR = f"datasets/{dataset_name}/test"
 
 
 def masking(a, b):
@@ -66,10 +67,9 @@ def PSNR_SSIM(orig_img, gen_img):
 
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-TEST_DIR = "datasets/EyeQ/test"
 
 gen = Generator().to(DEVICE)
-summary(gen, (3, 256, 256))
+# summary(gen, (3, 256, 256))
 
 load_checkpoint(checkpoint, gen, None, None)
 
@@ -82,7 +82,7 @@ transforms = A.Compose(
 )
 
 val_dataset = ABDataset(
-    root_a=TEST_DIR + f"/{dataset_name}", transform=transforms
+    root_a=TEST_DIR, transform=transforms
 )
 
 val_loader = DataLoader(
