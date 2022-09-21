@@ -6,4 +6,3 @@ conda install tqdm=4.64.0
 conda install scikit-image=0.18.3
 conda install scikit-learn=1.1.1
 conda install torchmetrics=0.9.3 -c conda-forge
-
