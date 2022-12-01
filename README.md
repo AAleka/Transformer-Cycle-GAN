@@ -13,6 +13,8 @@
 
 6. Run Test.py selecting the dataset.
 
+![Screenshot](Architecture.png)
+
 ## <a name="Citing"></a>Citing 
 
 If you use this code, please use the following BibTeX entry.
