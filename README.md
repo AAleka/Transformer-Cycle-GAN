@@ -1,6 +1,8 @@
 # Official implementation of paper "Retinal Image Restoration using Transformer and Cycle-Consistent Generative Adversarial Network"
 ## Vision Transformer and Convolutional Neural Network Cycle-Consistent Generative Adversarial
 
+![Screenshot](Architecture.png)
+
 1. Create anaconda environment using the following code: "conda create -n <env_name> python=3.9".
 
 2. Activate your environment: "conda activate <env_name>".
@@ -12,8 +14,6 @@
 5. Run Train.py selecting the dataset.
 
 6. Run Test.py selecting the dataset.
-
-![Screenshot](Architecture.png)
 
 ## <a name="Citing"></a>Citing 
 
