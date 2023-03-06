@@ -3,17 +3,13 @@
 
 ![Screenshot](Architecture.png)
 
-1. Create anaconda environment using the following code: "conda create -n <env_name> python=3.9".
+1. Create anaconda environment using the following code: "conda env create -f env.yml".
 
-2. Activate your environment: "conda activate <env_name>".
+2. Download EyeQ and/or Mendeley datasets and place them in datasets folder accordingly.
 
-3. Open requirements.txt file and install libraries one by one.
+3. Run Train.py selecting the dataset.
 
-4. Download EyeQ and/or Mendeley datasets and place them in datasets folder accordingly.
-
-5. Run Train.py selecting the dataset.
-
-6. Run Test.py selecting the dataset.
+4. Run Test.py selecting the dataset.
 
 ## <a name="Citing"></a>Citing 
 
