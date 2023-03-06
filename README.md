@@ -20,13 +20,22 @@
 If you use this code, please use the following BibTeX entry.
 
 ```
-@inproceedings{alimanov2022retinal,
-  title={Retinal Image Restoration using Transformer and Cycle-Consistent Generative Adversarial Network},
-  author={Alimanov, Alnur and Islam, Md Baharul},
-  booktitle={},
-  pages={},
-  year={2022},
-  organization={IEEE}
+@misc{https://doi.org/10.48550/arxiv.2303.01939,
+  doi = {10.48550/ARXIV.2303.01939},
+  
+  url = {https://arxiv.org/abs/2303.01939},
+  
+  author = {Alimanov, Alnur and Islam, Md Baharul},
+  
+  keywords = {Image and Video Processing (eess.IV), Computer Vision and Pattern Recognition (cs.CV), FOS: Electrical engineering, electronic engineering, information engineering, FOS: Electrical engineering, electronic engineering, information engineering, FOS: Computer and information sciences, FOS: Computer and information sciences},
+  
+  title = {Retinal Image Restoration using Transformer and Cycle-Consistent Generative Adversarial Network},
+  
+  publisher = {arXiv},
+  
+  year = {2023},
+  
+  copyright = {Creative Commons Attribution 4.0 International}
 }
 
 ```
