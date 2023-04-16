@@ -11,6 +11,8 @@
 
 4. Run Test.py selecting the dataset.
 
+### Model weights are available [HERE](https://drive.google.com/drive/folders/1NDNZsclDHmTpG2hsqq-nuc21VZyQ6Lhz?usp=sharing).
+
 ## <a name="Citing"></a>Citing 
 
 If you use this code, please use the following BibTeX entry.
