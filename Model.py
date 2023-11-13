@@ -106,13 +106,14 @@ class ConvolutionBlockG(nn.Module):
 
 
 class Generator(nn.Module):
-    def __init__(self, img_channels=3, image_size=256, patch_size=8, dim=1024, depth=7, heads=4,
+    def __init__(self, img_channels=3, width=512, height=256, patch_size=8, dim=1024, depth=7, heads=4,
                  mlp_ratio=4, drop_rate=0.):
         super(Generator, self).__init__()
-        if image_size % patch_size != 0:
+        if width % patch_size != 0 or height % patch_size != 0:
             raise ValueError('Image size must be divisible by patch size.')
-        self.num_patches_1d = image_size // patch_size
-        self.image_size = image_size
+
+        self.num_patches_1d = width // patch_size
+        self.num_patches_2d = height // patch_size
         self.patch_size = patch_size
         self.depth = depth
         self.patches = ImgPatches(img_channels, dim, self.patch_size)
@@ -122,7 +123,7 @@ class Generator(nn.Module):
         self.mlp_ratio = mlp_ratio
         self.dropout_rate = drop_rate
 
-        self.positional_embedding = nn.Parameter(torch.zeros(1, self.num_patches_1d ** 2, dim))
+        self.positional_embedding = nn.Parameter(torch.zeros(1, self.num_patches_1d * self.num_patches_2d, dim))
 
         self.TransformerEncoder = TransformerEncoder(depth=self.depth, dim=self.dim, heads=self.heads,
                                                      mlp_ratio=self.mlp_ratio, drop_rate=self.dropout_rate)
@@ -143,9 +144,10 @@ class Generator(nn.Module):
 
     def forward(self, x):
         x = self.patches(x)
+        print(x.shape, self.positional_embedding.shape)
         x = x + self.positional_embedding
 
-        x = self.TransformerEncoder(x).permute(0, 2, 1).view(-1, self.dim, self.num_patches_1d, self.num_patches_1d)
+        x = self.TransformerEncoder(x).permute(0, 2, 1).view(-1, self.dim, self.num_patches_1d, self.num_patches_2d)
 
         for layer in self.up_blocks:
             x = layer(x)
@@ -201,8 +203,9 @@ class Discriminator(nn.Module):
         return torch.sigmoid(x)
 
 
-# gen = Generator().to(torch.device("cuda"))
-# print(gen)
-# tensor = torch.randn((1, 3, 256, 256)).to(torch.device("cuda"))
-# output = gen(tensor)
-# print(output.shape)
+if __name__ == "__main__":
+    gen = Generator().to(torch.device("cuda"))
+    # print(gen)
+    tensor = torch.randn((1, 3, 512, 256)).to(torch.device("cuda"))
+    output = gen(tensor)
+    print(output.shape)
