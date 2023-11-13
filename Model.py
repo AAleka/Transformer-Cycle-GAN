@@ -106,7 +106,7 @@ class ConvolutionBlockG(nn.Module):
 
 
 class Generator(nn.Module):
-    def __init__(self, img_channels=3, width=512, height=256, patch_size=8, dim=1024, depth=7, heads=4,
+    def __init__(self, img_channels=3, width=256, height=256, patch_size=8, dim=1024, depth=7, heads=4,
                  mlp_ratio=4, drop_rate=0.):
         super(Generator, self).__init__()
         if width % patch_size != 0 or height % patch_size != 0:
@@ -204,7 +204,7 @@ class Discriminator(nn.Module):
 
 
 if __name__ == "__main__":
-    gen = Generator().to(torch.device("cuda"))
+    gen = Generator(width=512, height=256).to(torch.device("cuda"))
     # print(gen)
     tensor = torch.randn((1, 3, 512, 256)).to(torch.device("cuda"))
     output = gen(tensor)
