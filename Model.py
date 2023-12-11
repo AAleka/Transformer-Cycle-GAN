@@ -144,7 +144,6 @@ class Generator(nn.Module):
 
     def forward(self, x):
         x = self.patches(x)
-        print(x.shape, self.positional_embedding.shape)
         x = x + self.positional_embedding
 
         x = self.TransformerEncoder(x).permute(0, 2, 1).view(-1, self.dim, self.num_patches_1d, self.num_patches_2d)
