@@ -112,8 +112,8 @@ class Generator(nn.Module):
         if width % patch_size != 0 or height % patch_size != 0:
             raise ValueError('Image size must be divisible by patch size.')
 
-        self.num_patches_1d = width // patch_size
-        self.num_patches_2d = height // patch_size
+        self.num_patches_1d = height // patch_size
+        self.num_patches_2d = width // patch_size
         self.patch_size = patch_size
         self.depth = depth
         self.patches = ImgPatches(img_channels, dim, self.patch_size)
@@ -144,7 +144,6 @@ class Generator(nn.Module):
 
     def forward(self, x):
         x = self.patches(x)
-        print(x.shape, self.positional_embedding.shape)
         x = x + self.positional_embedding
 
         x = self.TransformerEncoder(x).permute(0, 2, 1).view(-1, self.dim, self.num_patches_1d, self.num_patches_2d)
