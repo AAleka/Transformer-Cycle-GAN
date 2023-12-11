@@ -27,6 +27,8 @@ path = "Results"
 checkpoint = "Results/genb.pth.tar"
 save_path = f"Results/Testing {dataset_name}"
 TEST_DIR = f"datasets/{dataset_name}/test"
+IMAGE_WIDTH = 256
+IMAGE_HEIGHT = 256
 
 
 def masking(a, b):
@@ -68,14 +70,14 @@ def PSNR_SSIM(orig_img, gen_img):
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-gen = Generator().to(DEVICE)
+gen = Generator(width=IMAGE_WIDTH, height=IMAGE_HEIGHT).to(DEVICE)
 # summary(gen, (3, 256, 256))
 
 load_checkpoint(checkpoint, gen, None, None)
 
 transforms = A.Compose(
     [
-        A.Resize(width=256, height=256),
+        A.Resize(width=IMAGE_WIDTH, height=IMAGE_HEIGHT),
         A.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5], max_pixel_value=255),
         ToTensorV2(),
     ]
