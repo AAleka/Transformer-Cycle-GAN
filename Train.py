@@ -1,3 +1,5 @@
+import os
+
 import torch
 from torch import nn
 from torch import optim
@@ -162,17 +164,22 @@ if __name__ == "__main__":
     NUM_EPOCHS = 500
     LOAD_MODEL = False
     SAVE_MODEL = True
-    IMAGE_WIDTH = 256
     IMAGE_HEIGHT = 256
+    IMAGE_WIDTH = 256
     CHECKPOINT_GEN_A = f"{path}/gena.pth.tar"
     CHECKPOINT_GEN_B = f"{path}/genb.pth.tar"
     CHECKPOINT_DISC_A = f"{path}/disca.pth.tar"
     CHECKPOINT_DISC_B = f"{path}/discb.pth.tar"
     count = 0
 
+    if not os.path.exists("Results"):
+        os.mkdir("Results")
+        os.mkdir("Results/Generated from HQ")
+        os.mkdir("Results/Generated from LQ")
+
     transforms = A.Compose(
         [
-            A.Resize(width=IMAGE_WIDTH, height=IMAGE_HEIGHT),
+            A.Resize(height=IMAGE_HEIGHT, width=IMAGE_WIDTH),
             A.HorizontalFlip(p=0.5),
             A.VerticalFlip(p=0.5),
             A.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5], max_pixel_value=255),
