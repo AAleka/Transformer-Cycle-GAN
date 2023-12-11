@@ -93,8 +93,8 @@ def train_fn(disc_A, disc_B, gen_A, gen_B, loader, opt_disc, opt_gen, l1, mse,  
 def main():
     disc_A = Discriminator().to(DEVICE)
     disc_B = Discriminator().to(DEVICE)
-    gen_A = Generator().to(DEVICE)
-    gen_B = Generator().to(DEVICE)
+    gen_A = Generator(width=IMAGE_WIDTH, height=IMAGE_HEIGHT).to(DEVICE)
+    gen_B = Generator(width=IMAGE_WIDTH, height=IMAGE_HEIGHT).to(DEVICE)
 
     opt_disc = optim.Adam(
         list(disc_A.parameters()) + list(disc_B.parameters()),
@@ -162,6 +162,8 @@ if __name__ == "__main__":
     NUM_EPOCHS = 500
     LOAD_MODEL = False
     SAVE_MODEL = True
+    IMAGE_WIDTH = 256
+    IMAGE_HEIGHT = 256
     CHECKPOINT_GEN_A = f"{path}/gena.pth.tar"
     CHECKPOINT_GEN_B = f"{path}/genb.pth.tar"
     CHECKPOINT_DISC_A = f"{path}/disca.pth.tar"
@@ -170,7 +172,7 @@ if __name__ == "__main__":
 
     transforms = A.Compose(
         [
-            A.Resize(width=256, height=256),
+            A.Resize(width=IMAGE_WIDTH, height=IMAGE_HEIGHT),
             A.HorizontalFlip(p=0.5),
             A.VerticalFlip(p=0.5),
             A.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5], max_pixel_value=255),
@@ -178,10 +180,5 @@ if __name__ == "__main__":
          ],
         additional_targets={"image0": "image"},
     )
-
-    gen = Generator().to(DEVICE)
-    disc = Discriminator().to(DEVICE)
-    # summary(gen, (3, 256, 256))
-    # summary(disc, (3, 256, 256))
 
     main()
