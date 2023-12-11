@@ -106,7 +106,7 @@ class ConvolutionBlockG(nn.Module):
 
 
 class Generator(nn.Module):
-    def __init__(self, img_channels=3, width=256, height=256, patch_size=8, dim=1024, depth=7, heads=4,
+    def __init__(self, img_channels=3, width=256, height=256, patch_size=8, dim=1024, depth=1, heads=4,
                  mlp_ratio=4, drop_rate=0.):
         super(Generator, self).__init__()
         if width % patch_size != 0 or height % patch_size != 0:
@@ -144,6 +144,7 @@ class Generator(nn.Module):
 
     def forward(self, x):
         x = self.patches(x)
+        print(x.shape, self.positional_embedding.shape)
         x = x + self.positional_embedding
 
         x = self.TransformerEncoder(x).permute(0, 2, 1).view(-1, self.dim, self.num_patches_1d, self.num_patches_2d)
